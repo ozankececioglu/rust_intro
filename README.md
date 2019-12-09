@@ -4,7 +4,7 @@
     - `rustc`: rust compiler, built over llvm, awesome compile time error/warning reporting
     - `cargo`: behaves both as a package manager (eg. conda) and build configurator (eg. cmake), makes use of "cargo.toml" to manage the project & dependent packages (aka `crate` in rust)
         - `cargo new hello_world [--bin, --lib]`: create a executable or library
-        - `cargo [build, publish]`: build/publish project
+        - `cargo [build, run, publish]`: build/publish project
         - `cargo [test, bench]`: run tests/benchmarks
         - `cargo [search, install, update, uninstall]`: manage dependencies
         
@@ -34,6 +34,7 @@
     - **structs**: 
     member type declaraion is mandatory, class methods are defined externally in impl context.
     All structs are passed by reference by default. If you skip & (reference) when instantiating a struct, then it will be treated as a std::unique_ptr, can't use after move. No constructor/destructor.
+    No inheritance are allowed in rust. Structs can only implement traits (interface in rust).
     ```
     struct S {
         field1: i32,
@@ -55,8 +56,15 @@
            // return S{0, 0}; --> the same as above
        }
     }
+    
+    impl Clone for S { // Clone is a rust std library trait, which defines how to deep copy an instance of the given class
+        fn clone(&self) -> MyStruct {
+            *self
+        }
+    }
+    
     ```
-    - tuples:
+    - **tuples**:
     ```
     fn foo() -> (i32, str) {
         return (3, "asd")
@@ -125,3 +133,4 @@
     ```
     
 - **memory management**:
+    - 
