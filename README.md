@@ -1,27 +1,28 @@
 # rust_intro
 
 - **tools**:
-    - `rustc`: rust compiler, built over llvm, awesome compile time error/warning reporting
+    - `rustc`: rust compiler, built over llvm, awesome compile time error/warning reports
     - `cargo`: behaves both as a package manager (eg. conda) and build configurator (eg. cmake), makes use of "cargo.toml" to manage the project & dependent packages (aka `crate` in rust)
         - `cargo new hello_world [--bin, --lib]`: create a executable or library
         - `cargo [build, run, publish]`: build/publish project
         - `cargo [test, bench]`: run tests/benchmarks
         - `cargo [search, install, update, uninstall]`: manage dependencies
-        
+    - Highly recommend rust plugin for PyCharm ;)
 - **declarations**:
     - **variables**: All variables are const by defult, `mut` keyword makes variable mutable. Python like type declarations. Basic types are passed by value.
     ```
-    let x = 3   // same as auto x = 3 in c++
+    let x = 3;   // same as auto x = 3 in c++
     let x: bool = true;  // type hints, implicitly infered when possible
     let x = 34;   // type isize
     let x: u8 = 34u8;   // unsigned int8
     let x = 34i64;   // signed long long int
     let x = 34f32;   // float
     let x = 34f64;   // double
-    let mut y = x as u64  // casting
-    let arr = [1, 2, 3] // basic array, its size is fixed
-    let arr2 = [i32; 10] // basic array of length 10 of type i32
-    let v = vec![1, 2, 3] // vector macro
+    let mut y = x as u64;  // casting
+    let arr = [1, 2, 3]; // basic array, its size is fixed
+    let arr2 = [i32; 10]; // basic array of length 10 of type i32
+    let v = vec![1, 2, 3]; // vector macro
+    let s = ""; //
     ```
     
     - **functions**: Type declarations is mandatory, except for void returns. 
@@ -52,7 +53,7 @@
            self.field1 += 1;
        }
        fn make_S(a: i32, b: i32) -> S {  // if you skip self, then method is static
-           return S{field1: a, field2: b};
+           return S{field1: a, field2: b}; // this is how you instantiate any struct. All fields should 
        }
        fn make_empty_S() -> S {
            return Self::make_S(0, 0);  // Self stands for implemented class, i.e. S in this case
@@ -60,9 +61,14 @@
        }
     }
     
-    impl Clone for S { // Clone is a rust std library trait, which defines how to deep copy an instance of the given class
+    // Copy is a rust std library trait and defines how to shallow copy an object, this generates the default implementation.
+    // If Copy trait is implemented for a struct, then it will be treated as pass by value in non-reference assignments.
+    impl Copy for S {}
+    
+    // Another std library trait, which defines how to deep copy an instance of the given class.
+    impl Clone for S { 
         fn clone(&self) -> S {
-            *self
+            *self  // Uses the copy trait to clone
         }
     }
     
@@ -101,7 +107,7 @@
     } 
     ```
 
-    - loops:
+    - **loops**:
     ```
     for i in 0..all.len() {
         println!("{}: {}", i, all[i]);
@@ -136,4 +142,6 @@
     ```
     
 - **memory management**:
-    - 
+    Basically, you can define a variable as reference (`let &a = ...`) or "not reference" (`let a = ...`). Most of the memory management is done in compile time, except the .
+    - **not references**: 
+    - **references**: Passing references are called "Borrowing". When you pass a reference to a function, function borrows it, so scope of the borrower should not be more broad than the owner. 
