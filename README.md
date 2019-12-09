@@ -19,6 +19,9 @@
     let x = 34f32;   // float
     let x = 34f64;   // double
     let mut y = x as u64  // casting
+    let arr = [1, 2, 3] // basic array, its size is fixed
+    let arr2 = [i32; 10] // basic array of length 10 of type i32
+    let v = vec![1, 2, 3] // vector macro
     ```
     
     - **functions**: Type declarations is mandatory, except for void returns. 
@@ -58,7 +61,7 @@
     }
     
     impl Clone for S { // Clone is a rust std library trait, which defines how to deep copy an instance of the given class
-        fn clone(&self) -> MyStruct {
+        fn clone(&self) -> S {
             *self
         }
     }
