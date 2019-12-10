@@ -22,7 +22,7 @@
     let arr = [1, 2, 3]; // basic array, its size is fixed
     let arr2 = [i32; 10]; // basic array of length 10 of type i32
     let v = vec![1, 2, 3]; // vector macro
-    let s = ""; //
+    let s: &str = ""; // str
     ```
     
     - **functions**: Type declarations is mandatory, except for void returns. 
@@ -53,11 +53,11 @@
            self.field1 += 1;
        }
        fn make_S(a: i32, b: i32) -> S {  // if you skip self, then method is static
-           return S{field1: a, field2: b}; // this is how you instantiate any struct. All fields should 
+           return S{field1: a, field2: b}; // this is how you instantiate any struct. All fields should exist
+           // return S{0, 0}; --> the same as above
        }
        fn make_empty_S() -> S {
            return Self::make_S(0, 0);  // Self stands for implemented class, i.e. S in this case
-           // return S{0, 0}; --> the same as above
        }
     }
     
@@ -142,6 +142,6 @@
     ```
     
 - **memory management**:
-    Basically, you can define a variable as reference (`let &a = ...`) or "not reference" (`let a = ...`). Most of the memory management is done in compile time, except the .
+    Basically, you can define a variable as reference (`let &a = ...`) or "not reference" (`let a = ...`). Most of the memory management is done in compile time, except the smart pointers.
     - **not references**: 
-    - **references**: Passing references are called "Borrowing". When you pass a reference to a function, function borrows it, so scope of the borrower should not be more broad than the owner. 
+    - **references**: Passing references are called "Borrowing". When you pass a reference to a function or assign it something else, target borrows it, so scope of the borrower should not be more broad than the owner. 
